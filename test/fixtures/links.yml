@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  node_a: 
+  node_b: 
+  direction: 1
+
+two:
+  node_a: 
+  node_b: 
+  direction: 1
