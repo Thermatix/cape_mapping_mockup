@@ -6,17 +6,17 @@ class Link < ActiveRecord::Base
 	include ActiveModel::Validations
 	belongs_to :map
 
-	validates :direction, presence :true, format: {with: /[1-3]{1}/ message: 'only allows "1,2 or 3"'  }}
+	validates :direction, presence :true,  numericality: { :greater_than : 0, :less_than_or_equal_to : 3}
 	validates :node_a, presence :true
 	validates :node_b, presence :true
 	validates_with Validator
 
 	def node_A
-		Link.find(self.node_a)
+		@nodeA ||= Link.find(self.node_a)
 	end
 
 	def node_B
-		Link.find(self.node_b)
+		@nodeB ||= Link.find(self.node_b)
 	end
 
 end
