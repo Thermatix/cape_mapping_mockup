@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service: 
+  type: 1
+  evo_value: 1
+  value_chain: 1
+
+two:
+  service: 
+  type: 1
+  evo_value: 1
+  value_chain: 1
