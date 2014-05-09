@@ -1,2 +1,3 @@
-class Api:::Admin:ServiceController < ApplicationController
+class Api:::Admin:ServiceController < AdminController
+
 end

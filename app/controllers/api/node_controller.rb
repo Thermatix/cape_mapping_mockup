@@ -1,2 +1,2 @@
-class Api::NodeController < ApplicationController
+class Api::NodeController < ApiController
 end

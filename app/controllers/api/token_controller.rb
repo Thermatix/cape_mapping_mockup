@@ -1,2 +1,2 @@
-class Api::TokenController < ApplicationController
+class Api::TokenController < ApiController
 end

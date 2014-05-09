@@ -1,2 +1,2 @@
-class Api::MapController < ApplicationController
+class Api::MapController < ApiController
 end
