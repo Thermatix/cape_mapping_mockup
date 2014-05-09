@@ -1,0 +1,22 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: "cmm_development"
+  pool: 5
+  host: "localhost"
+  password: "jack123" 
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: "cmm_test"
+  pool: 5
+  host: "localhost"
+  password: "jack123"
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: "cmm_production"
+  pool: 5
+  host: "localhost"
