@@ -13,8 +13,9 @@ CapeMappingMockup::Application.routes.draw do
         resources :node, only: [:create,:show,:update,:destroy]
         resources :link, only: [:create,:show,:update,:destroy]
       end
+      resources :service, only: [:show]
       namespace :admin do
-        resources :service, only: [:create,:update,:destroy]
+        resources :service, only: [:create,:show,:update,:destroy]
       end
     end
   end
