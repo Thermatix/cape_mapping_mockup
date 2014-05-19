@@ -3,25 +3,23 @@ class Api:::Admin:ServiceController < AdminController
 	# t.text :descriptor
 	# t.references :services, index: true
 	def show
-			response_for (@service = Service.find(params[:service_id]))
+		super(@service)
 	end
 
 	def create
-		response_for (@service = Service.create(service_params))
+		super(@service = Service.create(service_params))
 	end
 
 	def update
-		response_for (@service = Service.where(params[:service_id]).update_all(service_params))
+		super(@service = Service.where(params[:service_id]).update_all(service_params))
 	end
 
 	def destroy
-		@service = Service.find(params[:service_id])
-		@service.destroy
-		response_for 'Service'
+		super((@service = Service.find(params[:service_id]),'Service')
 	end
 	private
 		def service_params
-			{
+			@service_params ||={
 				name: params[:name],
 				descriptor: params[:descriptor],
 				services: params[:services]

@@ -3,7 +3,8 @@ class Api::ServiceController < ApiController
 	# t.text :descriptor
 	# t.references :services, index: true
 	def show
-			response_for (@service = Service.find(params[:service_id]))
+		super(@service = Service.find(params[:service_id]))
 	end
+
 
 end

@@ -13,28 +13,31 @@ class ApplicationController < ActionController::Base
   end
 
   def check_permissions
-    if @user
-    	@user.permissions.each do |p|
-    		self.perms.each do |pe|
-    			allowed =+ 1 if p == pe
-    		end
-    	end
-      allowed = false if allowed == self.perms.length
-    	if !allowed
-    		respond_with |format| do
-    			format.json{render json: {code: 403, message: 'You are not authorized for this API endpoint'}}
-    			format.html{render file: 'public/403.html', status: :unauthorized, layout: false }
-  	  	end
-    	end
-    else
-      respond_with |format| do
-        format.json{render json: {code: 401, message: 'You are not authenticated.'}}
+    if !self.perms.include?(:none)
+      if @user
+      	@user.permissions.each do |p|
+      		self.perms.each do |pe|
+      			allowed =+ 1 if p == pe
+      		end
+      	end
+        allowed = false if allowed == self.perms.length
+      	if !allowed
+      		respond_with |format| do
+      			format.json{render json: {code: 403, message: 'You are not authorized for this API endpoint'}}
+      			format.html{render file: 'public/403.html', status: :unauthorized, layout: false }
+    	  	end
+      	end
+      else
+        respond_with |format| do
+          format.json{render json: {code: 401, message: 'You are not authenticated.'}}
+        end
       end
     end
   end
 
   def logged_in?
-  	@user = User.find(params[:user_id] || sesssion[:user_id] || request.headers[:user_id])
+    @token = Token.find_by_access_token(request.headers[:access_token])
+  	@user = @token.user
   end
 
 

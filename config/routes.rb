@@ -1,8 +1,10 @@
 CapeMappingMockup::Application.routes.draw do
   namespace :api do
     scope module: :oauth do
-      resource :token, only: [:create,:update,:destroy] 
-      get :authorize, to: 'token#authorize'
+      get :authorize, to: 'token#index'
+      get '/ask_for_authorize', to: 'token#show', as: 'ask_for_authorize' #this step is only for outside
+      get '/token/new/:auth_code', to: 'token#new', as: 'get_auth_code'
+      resource :token, only: [:create,:update,:destroy]
     end
 
     scope module: :v1 do
@@ -23,5 +25,6 @@ CapeMappingMockup::Application.routes.draw do
   get '/user'     , to: 'client#user'    , as: :client_user
   get '/admin'    , to: 'client#admin'   , as: :client_admin
   get '/admin/services' , to: 'client#services', as: :client_services
+  resource :session, only: [:create]
   root to:'client#index'
 end

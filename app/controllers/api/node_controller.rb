@@ -5,25 +5,24 @@ class Api::NodeController < ApiController
 	# t.integer :value_chain
 
 	def show
-		response_for (@node = Node.find(params[:node_id]))
+		super(@node = Node.find(params[:node_id])
 	end
 
 	def create
-		response_for (@node = Node.create(node_params))
+		super(@node = Node.create(node_params))
 	end
 
 	def update
-		response_for (@node = Node.where(params[:node_id]).update_all(node_params))
+		super(@node = Node.where(params[:node_id]).update_all(node_params))
 	end
 
 	def destroy
-		@node = Node.find(params[:node_id])
-		@node.destroy
-		response_for 'Node'
+		super((@node = Node.find(params[:node_id]),'Node')
 	end
+
 	private
 		def node_params
-			{
+			@node_params ||= {
 				service: params[:service],
 				type: params[:type],
 				evo_value: params[:evo_value],

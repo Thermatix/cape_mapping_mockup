@@ -6,26 +6,25 @@ class Api::UserController < ApiController
 	# t.string :p 'for permissions'
 
 	def show
-		response_for @user
+		super(@user)
 	end
 
 	def create
-		response_for (@user = User.create(user_params))
+		super(@user = User.create(user_params))
 	end
 
 	def update
-		response_for (@user = User.where(params[:user_id]).update_all(user_params))
+		super(@user = User.where(params[:user_id]).update_all(user_params))
 	end
 
 	def destroy
-		@user = User.find(params[:user_id])
-		@user.destroy
-		response_for 'User'
+		super((@user = User.find(params[:user_id]),'User')
 	end
+
 	private
 
 		def user_params
-			{
+			@user_params ||= {
 				name: params[:name],
 				company: params[:company],
 				password: params[password],
