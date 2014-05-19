@@ -1,8 +1,9 @@
 class Api::ServiceController < ApiController
+	# t.string :name
+	# t.text :descriptor
+	# t.references :services, index: true
 	def show
-		@service = Service.find(params[:service_id])
-		respond_with @service do |format|
-			format.json{render json: @service}
-		end
+			response_for (@service = Service.find(params[:service_id]))
 	end
+
 end
