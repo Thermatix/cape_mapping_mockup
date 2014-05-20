@@ -1,8 +1,8 @@
 <section id="main" >
 	<section id="login" class="popup">
 		<section id="form">
-			<%= form_for :user, url: session_path, remote: true do |f| %>
-				User Name <%= f.text_field :user_name %>
+			<%= form_for @user, id: 'user_login', url: session_path, remote: true do |f| %>
+				User Name <%= f.text_field :name %>
 				Password <%= f.password_field :password %>
 				<%= f.submit 'login', class: 'button' %>
 			<% end %>

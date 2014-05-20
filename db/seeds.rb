@@ -25,7 +25,7 @@ if test.save
 		ap 'test set as admin!'
 		ap test
 		ap test.permissions
-		test.destroy
+		# test.destroy
 	else
 		ap 'something went wrong'
 		ap test

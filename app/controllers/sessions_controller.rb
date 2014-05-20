@@ -1,6 +1,10 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
+
 	def create
-		@user = @user.find_by_name(session_params[:name])
+
+		@user = User.find_by_name(session_params[:name])
+		ap session_params
+		ap @user
 		if @user.password == session_params[:password]
 			respond_to do |format|
 				if session[:site_login]
@@ -22,7 +26,7 @@ class SessionController < ApplicationController
 		def session_params
 			@session_params ||= {
 				name: params[:name],
-				password: params[password]
+				password: params[:password]
 			}
 		end
 end

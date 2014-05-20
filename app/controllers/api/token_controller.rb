@@ -4,6 +4,7 @@ class Api::TokenController < Api::ApiController
 	respond_to :json, :html
 
 	def index # login with session controller and then go's to show
+		@user = User.new
 
 	end
 
