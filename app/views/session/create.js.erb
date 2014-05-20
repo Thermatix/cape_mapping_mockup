@@ -1,0 +1,32 @@
+var main $('#login_main')
+<% if @redirect_path %>
+	main.HTML = "<%= render 'token/show' %>"
+<% else %>
+	main.HTML = "<%= render 'processing' %>"
+	$.ajax({
+		dataType: "json",
+		url: '<%= api_get_auth_code_path %>',
+		success: function(data,textStatus,jqXHR){
+			if(data.code == 200){
+				$.ajax({
+					url: "<%= api_token_path %>",
+					type: "POST",
+					data: JSON.stringify(auth_code: data.auth_code),
+					dataType: 'json',
+					success: function(data,textStatus,jqXHR){
+						if(data.code == 200){
+							jquery.cookie("auth_token") = data.auth_token
+							jquery.cookie("refresh_token") = data.refresh_token
+						}
+					}
+				})
+			}
+			else{
+				var page = document.open("text/html", "replace")
+				page.write("<%= render file: 'public/500.html' , layout: false %>")
+				page.close()
+			}
+		}
+	})
+
+<% end %>

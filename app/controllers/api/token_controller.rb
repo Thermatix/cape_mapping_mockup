@@ -1,4 +1,4 @@
-class Api::TokenController < ApiController
+class Api::TokenController < Api::ApiController
 
 	set_permissions :none
 	respond_to :json, :html
@@ -13,23 +13,23 @@ class Api::TokenController < ApiController
 
 	def new
 		@token = Token.create
-		respond_with @token do |format|
+		respond_with(@token) do |format|
 			if @token.save
 				if session[:site_login]
-					format.json {render json: {auth_code: @token.auth_code}}
+					format.json {render json: {code: 200, auth_code: @token.auth_code}}
 				else
 					# format.html {redirect_to callback_path({auth_code: @token.auth_code}) }
 				end
 			else
 				if session[:site_login]
-					format.json {render json: {code: 500, message: 'Somthing went wrong, token was not saved'}
+					format.json {render json: {code: 500, message: 'Somthing went wrong, token was not saved'}}
 				else
 					format.html{render file: 'public/500.html', layout: false }
 				end
 			end
 		end
-
 	end
+
 
 	def create #recive auth_code and return auth_token
 		@token = Token.find_by_auth_Code(params[:auth_code])
@@ -55,11 +55,11 @@ class Api::TokenController < ApiController
 			else
 				respond_with token do |format|
 					if token
-						token.gen_auth_token
+						token.gen_token
 						format.json {render json: token}
-					end
-						format.json {render json: {code: 404, message: 'Token not found'}
 					else
+						format.json {render json: {code: 404, message: 'Token not found'}}
+					end
 				end
 			end
 		end

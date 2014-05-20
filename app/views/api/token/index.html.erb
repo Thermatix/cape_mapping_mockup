@@ -1,5 +1,14 @@
-LOGIN FORM GOES HERE
-
-name
-
-password
+<section id="main" >
+	<section id="login" class="popup">
+		<section id="form">
+			<%= form_for :user, url: session_path, remote: true do |f| %>
+				User Name <%= f.text_field :user_name %>
+				Password <%= f.password_field :password %>
+				<%= f.submit 'login', class: 'button' %>
+			<% end %>
+		</section>
+		<% if(flash_type)%>
+			<%= render 'flash' %>
+		<% end %>
+	</section>
+</section>

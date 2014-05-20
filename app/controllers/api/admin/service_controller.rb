@@ -3,7 +3,7 @@ class Api:::Admin:ServiceController < AdminController
 	# t.text :descriptor
 	# t.references :services, index: true
 	def show
-		super(@service)
+		super(@service = Service.find(params[:service_id]))
 	end
 
 	def create

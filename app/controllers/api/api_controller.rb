@@ -1,7 +1,7 @@
-class ApiController < ApplicationController
+class Api::ApiController < ApplicationController
 
 	set_permissions :api
-	before_filter :check_permissions, except: :set_permissions
+	before_action :check_permissions, except: :set_permissions
 	respond_to :json
 
 	def show object
@@ -24,7 +24,7 @@ class ApiController < ApplicationController
 	def response_for object
 		respond_with object do |format|
 			if action_name == 'destroy'
-				format.json {render json: {code: 200, message: "{object} destroyed" }
+				format.json {render json: {code: 200, message: "{object} destroyed" }}
 			elsif action_name == 'show'
 				format.json {render json: object}
 			elsif object.save

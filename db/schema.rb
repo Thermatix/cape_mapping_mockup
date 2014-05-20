@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519102718) do
+ActiveRecord::Schema.define(version: 20140520132402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140519102718) do
     t.string   "node_a"
     t.string   "node_b"
     t.integer  "direction"
+    t.integer  "map_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,15 +46,17 @@ ActiveRecord::Schema.define(version: 20140519102718) do
     t.datetime "updated_at"
   end
 
-  create_table "service", force: true do |t|
+  create_table "services", force: true do |t|
     t.string   "name"
     t.text     "descriptor"
-    t.integer  "service_id"
+    t.integer  "services_id"
+    t.integer  "similar_services_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "service", ["service_id"], name: "index_service_on_service_id", using: :btree
+  add_index "services", ["services_id"], name: "index_services_on_services_id", using: :btree
+  add_index "services", ["similar_services_id"], name: "index_services_on_similar_services_id", using: :btree
 
   create_table "similar_services", force: true do |t|
     t.integer  "services_id"
@@ -78,8 +81,11 @@ ActiveRecord::Schema.define(version: 20140519102718) do
     t.string   "name"
     t.string   "company"
     t.string   "password"
+    t.string   "perms"
+    t.integer  "map_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_digest"
   end
 
 end

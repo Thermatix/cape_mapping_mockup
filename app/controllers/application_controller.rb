@@ -1,16 +1,20 @@
+require 'awesome_print'
 class ApplicationController < ActionController::Base
-	attr_reader :perms
+
+	# class << self
+    cattr_accessor :perms
+  # end
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :check_permissions, :logged_in?
+  helper_method  :set_permissions,:check_permissions, :logged_in?
+  before_action  :logged_in?
 
-  before_filter :logged_in?
-
-  def set_permisions *permissions
+  def self.set_permissions *permissions
     self.perms = permissions
   end
+
 
   def check_permissions
     if !self.perms.include?(:none)
@@ -20,24 +24,31 @@ class ApplicationController < ActionController::Base
       			allowed =+ 1 if p == pe
       		end
       	end
-        allowed = false if allowed == self.perms.length
+        allowed = false if allowed != self.perms.length
       	if !allowed
-      		respond_with |format| do
+
+      		respond_to do |format|
       			format.json{render json: {code: 403, message: 'You are not authorized for this API endpoint'}}
       			format.html{render file: 'public/403.html', status: :unauthorized, layout: false }
     	  	end
+
       	end
       else
-        respond_with |format| do
+
+        respond_to  do |format|
           format.json{render json: {code: 401, message: 'You are not authenticated.'}}
         end
+
       end
     end
   end
 
   def logged_in?
-    @token = Token.find_by_access_token(request.headers[:access_token])
-  	@user = @token.user
+    if request.headers[:access_token]
+      search_for = "access_token =" + request.headers[:access_token]
+      @token = Token.where(search_for)
+    	@user = @token.user
+    end
   end
 
 

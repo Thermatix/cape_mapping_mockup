@@ -1,1 +1,6 @@
-ASK FOR USER Authorization GOES HERE
+<h2>
+	Please Authorize this application to Use your infomation
+</h2>
+<%= form_tag api_get_auth_code_path,{method: get}%>
+	<%= button_tag 'Authorize' %>
+<% end %>

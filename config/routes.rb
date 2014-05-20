@@ -1,9 +1,9 @@
 CapeMappingMockup::Application.routes.draw do
   namespace :api do
-    scope module: :oauth do
+    scope :oauth do
       get :authorize, to: 'token#index'
       get '/ask_for_authorize', to: 'token#show', as: 'ask_for_authorize' #this step is only for outside
-      get '/token/new/:auth_code', to: 'token#new', as: 'get_auth_code'
+      get '/token/new', to: 'token#new', as: 'get_auth_code'
       resource :token, only: [:create,:update,:destroy]
     end
 
